@@ -15,12 +15,12 @@ void setup()
   pinMode(pin_fan, OUTPUT); // กำหนดขาทำหน้าที่ให้ขา 2 เป็น OUTPUT
   pinMode(pin_heater, OUTPUT); // กำหนดขาทำหน้าที่ให้ขา 4 เป็น OUTPUT
 
-  digitalWrite(pin_fan, LOW);
-  digitalWrite(pin_heater, LOW);
+  digitalWrite(pin_fan, HIGH);
+  digitalWrite(pin_heater, HIGH);
 
   ts.setOffset(0);
   // set offset for temperature measurement.
-  // 1 stannds for 0.25 Celsius
+  // 1 stands for 0.25 Celsius
 
   Serial.begin(9600);
 }
@@ -29,7 +29,7 @@ void setup()
 void loop()
 {
   temperature = ts.getCelsius();
-  Serial.println(temperature, 2);
+  Serial.println(temperature, 2);   
 
   if (temperature >= 45.00) {
     digitalWrite(pin_fan, LOW);  // ส่งให้ไฟดับ
@@ -39,6 +39,8 @@ void loop()
     digitalWrite(pin_fan, HIGH);  // ส่งให้ไฟติด
     digitalWrite(pin_heater, HIGH); // ส่งให้ไฟติด
     Serial.println(String("Activate fan and heater at temperature: ") + String(temperature, 2)); 
+  } else {
+    // do not thing, waiting them for cool down the temperature.
   }
 
   delay(1000);
